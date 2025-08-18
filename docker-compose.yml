@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  registration:
+    build: .
+    container_name: KSR-MC-Reg
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      - ./config.json:/app/config.json:ro
+      - ./secret_key.json:/app/secret_key.json:ro
+      - /mnt/user/logs/ksrmcreg/:/app/logs
+    restart: unless-stopped
+    networks:
+      - proxynet
+    labels:
+      net.unraid.docker.icon: "http://ksrminecraft.ch/dockericons/icon.png"
+      net.unraid.docker.webui: "https://ksrregistration.duckdns.org/"
+
+networks:
+  proxynet:
+    external: true

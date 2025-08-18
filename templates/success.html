@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        
+        .container .green-text {
+            color: darkgreen;
+            font-weight: bold;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .no-line-break {
+            white-space: nowrap;
+            display: inline;
+        }
+
+        .small-text {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Erfolgreich</h1>
+        <p class="center-text green-text">Gratuliere, du erfüllst alle Bedingungen, um bei uns mitspielen zu können!</p>
+        <p class="center-text green-text">Du wirst in Kürze eine E-Mail erhalten, in der du deine Registrierung bestätigen kannst.</p>
+        <p class="center-text">Solltest du keine E-Mail erhalten, überprüfe bitte deinen Spam-Ordner.</p>
+        <p class="center-text">
+            Solltest du auch dort keine E-Mail finden, kontaktiere uns bitte unter
+            <a href="mailto:{{ config.support_mail }}" class="no-line-break">{{ config.support_mail }}</a> oder besuche unseren Discord-Server.</a></p>
+            <p class="center-text"><a href="{{ config.url_discord }}"> Discord</a>.</p>
+            <p class="center-text">
+            <span style="color: red; font-style: italic;">
+                Solltest du deine Registrierung nicht bestätigen, wird sie nach {{ config.waiting_time_for_db_cleaner }} Minuten automatisch gelöscht.
+            </span>
+        </p>
+        <p class="center-text">Wir freuen uns auf dich!</p>
+        <p class="small-text">Du kannst dieses Fenster nun schließen.</p>
+    </div>
+</body>
+</html>

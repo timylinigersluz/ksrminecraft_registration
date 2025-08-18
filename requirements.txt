@@ -1,0 +1,6 @@
+Flask
+itsdangerous
+requests
+mctools
+mysql-connector-python
+gunicorn
