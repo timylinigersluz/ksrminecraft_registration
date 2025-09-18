@@ -119,7 +119,7 @@ def register():
     # Bestätigungslink (führt auf confirm_page!)
     confirmation_link = request.host_url + 'confirm_page/' + token
     logger.info(f"Sende Bestätigungslink mit Token ({token}) per E-Mail.")
-    mail_handler.send_confirmation_email(to_email=email, confirmation_link=confirmation_link)
+    mail_handler.send_confirmation_email(to_email=email, confirmation_link=confirmation_link, firstname=firstname)
 
     logger.info("Registrierung erfolgreich abgeschlossen.")
     return redirect(url_for('success'))
