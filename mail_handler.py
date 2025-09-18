@@ -43,58 +43,70 @@ def send_confirmation_email(to_email: str, confirmation_link: str, firstname: st
     # Plaintext-Version (Fallback)
     text_body = f"""Hallo {greeting_name},
 
-schön, dass du dich registriert hast! 🎉
+schön, dass du dich registriert hast!
 Du bist schon fast am Ziel – es fehlt nur noch ein kleiner Schritt:
 
-Bitte bestätige deine Registrierung über folgenden Link:
 {confirmation_link}
 
-Viele Grüsse vom KSR Minecraft Team  
-Discord: https://discord.gg/ekmVqnzF9g ∙ Website: https://ksrminecraft.ch  
-
+Viele Grüsse vom KSR Minecraft Team
 Bei Fragen melde dich ungeniert bei uns!
+
+Discord: https://discord.gg/ekmVqnzF9g
+Website: https://ksrminecraft.ch
 """
 
-    # HTML-Version (dein Layout, zentriert)
-    html_body = f"""\
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>KSR Minecraft Registrierung</title>
-  </head>
-  <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
-    <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center;">
-      
-      <h2>Hallo {greeting_name},</h2>
-      <p>schön, dass du dich registriert hast!</p>
-      <p>Du bist schon fast am Ziel – es fehlt nur noch ein kleiner Schritt:</p>
-      
-      <!-- Link-Button -->
-      <div style="margin: 20px 0;">
-        <a href="{confirmation_link}"
-           style="background: #28a745; color: #ffffff; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin: 10px 0;">
-          Registrierung bestätigen
-        </a><br>
-      </div>
-
-      <p>Viele Grüsse vom <strong>KSR Minecraft Team</strong></p>
-      <p style="color: #555; font-size: 14px;">Bei Fragen melde dich ungeniert bei uns!</p>
-
-      <!-- Logo -->
-      <div style="margin-top: 30px;">
-        <img src="https://ksrminecraft.ch/media/logos/logo_mailsig.jpg"
-             alt="KSR Minecraft Logo" style="width:200px; opacity:0.8;">
-      </div>
-
-      <p>
-        <a href="https://discord.gg/ekmVqnzF9g">Discord</a> ∙ 
-        <a href="https://ksrminecraft.ch">Website</a>
-      </p>
-    </div>
-  </body>
-</html>
-"""
+    # HTML-Version (tabellenbasiert → für Outlook geeignet)
+    html_body = f"""
+    <html>
+    <body style="margin:0; padding:0; background-color:#f9f9f9; font-family: Arial, sans-serif;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td align="center" style="padding:20px 0;">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="background:#ffffff; border-radius:8px;">
+              <tr>
+                <td align="center" style="padding:20px;">
+                  <img src="https://ksrminecraft.ch/media/logos/logotransparentrechteck.png" alt="KSR Minecraft Logo" width="200" style="display:block; margin-bottom:20px;">
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:0 30px; color:#333;">
+                  <h2 style="text-align:center;">Hallo {greeting_name},</h2>
+                  <p style="text-align:center;">schön, dass du dich registriert hast!</p>
+                  <p style="text-align:center;">Du bist schon fast am Ziel – es fehlt nur noch ein kleiner Schritt:</p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="padding:30px;">
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="center" bgcolor="#28a745" style="border-radius:5px;">
+                        <a href="{confirmation_link}" target="_blank" style="display:inline-block; padding:12px 20px; font-weight:bold; color:#ffffff; text-decoration:none; font-family: Arial, sans-serif;">
+                          Registrierung bestätigen
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:0 30px; text-align:center; color:#333;">
+                  <p>Viele Grüsse vom <strong>KSR Minecraft Team</strong></p>
+                  <p style="color:#555; font-size:14px;">Bei Fragen melde dich ungeniert bei uns!</p>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="padding:20px; font-size:14px;">
+                  <a href="https://discord.gg/ekmVqnzF9g" style="color:#007bff; text-decoration:none;">Discord</a> ∙ 
+                  <a href="https://ksrminecraft.ch" style="color:#007bff; text-decoration:none;">Website</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
+    """
 
     # Multipart-Mail (Plain + HTML)
     msg = MIMEMultipart("alternative")
