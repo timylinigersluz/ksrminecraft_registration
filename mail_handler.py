@@ -83,7 +83,7 @@ Bei Fragen melde dich ungeniert bei uns!
 
       <!-- Logo -->
       <div style="margin-top: 30px;">
-        <img src="https://ksrminecraft.ch/media/logos/logotransparentrechteck.png"
+        <img src="https://ksrminecraft.ch/media/logos/logo_mailsig.jpg"
              alt="KSR Minecraft Logo" style="width:200px; opacity:0.8;">
       </div>
 
