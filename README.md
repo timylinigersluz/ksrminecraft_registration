@@ -28,15 +28,15 @@ bevor sie auf die Whitelist des Servers gelangen.
 ## Beispiel Use Case
 
 1.  Ein Spieler gibt auf der KSRMinecraft-Website **Name, Vorname,
-    E-Mail, Schule und Minecraft-Username** an.\
-2.  Die Daten werden an diese API übermittelt.\
+    E-Mail, Schule und Minecraft-Username** an.
+2.  Die Daten werden an diese API übermittelt.
 3.  Das Programm prüft die Eingaben (Sluz-E-Mail, gültiger Username,
-    maximale Anzahl Accounts pro Mail etc.).\
+    maximale Anzahl Accounts pro Mail etc.).
 4.  Ein einmaliger Bestätigungsschlüssel wird generiert und an die
-    E-Mail des Spielers gesendet.\
-5.  Der Spieler klickt auf den Link in der E-Mail.\
+    E-Mail des Spielers gesendet.
+5.  Der Spieler klickt auf den Link in der E-Mail.
 6.  Wenn der Schlüssel korrekt ist, wird der Spieler automatisch in die
-    **Whitelist** des Minecraft-Servers eingetragen.\
+    **Whitelist** des Minecraft-Servers eingetragen.
 7.  Eine **Bestätigungsseite** zeigt den Erfolg der Registrierung an.
 
 ------------------------------------------------------------------------
