@@ -1,0 +1,32 @@
+{
+  "//General": "General config settings",
+  "debug": false,
+  "max_users_per_mail": 3,
+  "waiting_time_for_db_cleaner": 60,
+  "accepted_mail_endings": ["example.com"],
+  
+
+  "//Web": "Webserver settings, paths & URLs",
+  "url_discord": "https://discord.gg/XXXXXXXXXXXXXXXX",
+  "support_mail" : "example@example.com",
+  "url_get_connected": "https://example.com",
+
+  
+  "//Database": "Database connection settings",
+    "db_host": "example.com",
+    "db_port": 3306,
+    "db_user": "your_username",
+    "db_password": "your_password",
+    "db_database": "your_database",
+  
+  "//Email": "Email settings",
+  "smtp_server": "smtp.example.com",
+  "smtp_port": 587,
+  "smtp_username": "example@example.com",
+  "smtp_password": "your_password",
+  
+  "//RCON-Settings": "RCON settings",
+  "rcon_host": "your_IPv4-Adress",
+  "rcon_port": 25575,
+  "rcon_password": "your_password"
+}
