@@ -24,9 +24,8 @@
   "smtp_port": 587,
   "smtp_username": "example@example.com",
   "smtp_password": "your_password",
+  "test_recipient": "your@testmail.com",
+  "sender_display_name": "your sender name",
+  "sender_organization": "your orgz"
   
-  "//RCON-Settings": "RCON settings",
-  "rcon_host": "your_IPv4-Adress",
-  "rcon_port": 25575,
-  "rcon_password": "your_password"
 }

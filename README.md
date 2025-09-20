@@ -19,8 +19,6 @@ bevor sie auf die Whitelist des Servers gelangen.
 -   Speicherung der Registrierungsdaten in einer MySQL-Datenbank
 -   Automatisches Bereinigen nicht bestätigter Registrierungen
 -   Verwaltung und Logging aller Vorgänge
--   Unterstützung für RCON zur direkten Whitelist-Interaktion mit dem
-    Minecraft-Server
 -   Docker-Deployment möglich
 
 ------------------------------------------------------------------------
@@ -126,7 +124,6 @@ Die Konfiguration erfolgt über **`config.json`**:
 -   **Web**: Support-Mail, Discord-Link, Verbindungs-URL\
 -   **Database**: Zugangsdaten MySQL\
 -   **Email**: SMTP-Einstellungen für Mailversand\
--   **RCON**: Host, Port und Passwort für Minecraft-Server
 
 Beispielauszug:
 
@@ -143,9 +140,6 @@ Beispielauszug:
   "smtp_port": 587,
   "smtp_username": "ksrminecraftwhitelister@gmail.com",
   "smtp_password": "******",
-  "rcon_host": "45.154.49.72",
-  "rcon_port": 25575,
-  "rcon_password": "******"
 }
 ```
 
@@ -182,7 +176,6 @@ python main.py
     .
     ├── main.py                 # Flask Webserver & Routing
     ├── database_handler.py     # Datenbankzugriff
-    ├── RCON_handler.py         # Minecraft-Whitelist Verwaltung via RCON
     ├── mail_handler.py         # E-Mail Versand
     ├── log_handler.py          # Logging
     ├── config.json             # Konfiguration

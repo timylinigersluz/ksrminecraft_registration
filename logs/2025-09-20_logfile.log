@@ -1,0 +1,42 @@
+2025-09-20 10:34:18 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:34:18 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:34:20 INFO: ✅ Testmail erfolgreich verschickt.
+2025-09-20 10:35:58 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:35:58 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:37:22 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:37:22 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:42:22 ERROR: ❌ Fehler beim Senden der Testmail: Connection unexpectedly closed
+2025-09-20 10:44:21 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:44:21 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:44:48 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:44:48 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:47:26 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:47:26 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:48:50 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:48:50 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:49:57 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:49:57 INFO: Starte Test-E-Mail Versand.
+2025-09-20 10:52:00 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:52:00 INFO: Starte Test-E-Mail Versand an timothee.liniger@sluz.ch
+2025-09-20 10:52:00 INFO: Verbinde per SMTP_SSL (Port 465).
+2025-09-20 10:52:01 INFO: ✅ Testmail erfolgreich verschickt.
+2025-09-20 10:56:06 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:56:06 INFO: Starte Test-E-Mail Versand an timothee.liniger@sluz.ch
+2025-09-20 10:56:06 INFO: Verbinde per SMTP_SSL (Port 465).
+2025-09-20 10:56:07 INFO: ✅ Testmail erfolgreich verschickt.
+2025-09-20 10:58:34 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 10:58:34 INFO: Starte Test-E-Mail Versand an timothee.liniger@sluz.ch
+2025-09-20 10:58:34 INFO: Verbinde per SMTP_SSL (Port 465).
+2025-09-20 10:58:35 INFO: ✅ Testmail erfolgreich verschickt.
+2025-09-20 11:03:03 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 11:03:03 INFO: Starte Test-E-Mail Versand an timothee.liniger@sluz.ch
+2025-09-20 11:03:03 INFO: Verbinde per SMTP_SSL (Port 465).
+2025-09-20 11:03:04 INFO: ✅ Testmail erfolgreich verschickt.
+2025-09-20 11:07:56 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 11:07:56 INFO: Starte Test-E-Mail Versand an timothee.liniger@sluz.ch
+2025-09-20 11:07:56 INFO: Verbinde per SMTP_SSL (Port 465).
+2025-09-20 11:07:57 INFO: ✅ Testmail erfolgreich verschickt.
+2025-09-20 11:09:14 INFO: Lade E-Mail-Zugangsdaten aus JSON-Datei.
+2025-09-20 11:09:14 INFO: Starte Test-E-Mail Versand an timothee.liniger@sluz.ch
+2025-09-20 11:09:14 INFO: Verbinde per SMTP_SSL (Port 465).
+2025-09-20 11:09:15 INFO: ✅ Testmail erfolgreich verschickt.

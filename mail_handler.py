@@ -15,6 +15,28 @@ def load_email_credentials() -> dict:
         return credentials
 
 
+def _connect_smtp(creds: dict):
+    """
+    Stellt je nach Port eine sichere SMTP-Verbindung her.
+    - Port 465: SSL/TLS
+    - Port 587: STARTTLS
+    """
+    server = None
+    if creds["smtp_port"] == 465:
+        logger.info("Verbinde per SMTP_SSL (Port 465).")
+        server = smtplib.SMTP_SSL(creds["smtp_server"], creds["smtp_port"])
+    elif creds["smtp_port"] == 587:
+        logger.info("Verbinde per SMTP mit STARTTLS (Port 587).")
+        server = smtplib.SMTP(creds["smtp_server"], creds["smtp_port"])
+        server.starttls()
+    else:
+        logger.warning(f"Ungewohnter SMTP-Port {creds['smtp_port']} – versuche Standard-SMTP.")
+        server = smtplib.SMTP(creds["smtp_server"], creds["smtp_port"])
+
+    server.login(creds["smtp_username"], creds["smtp_password"])
+    return server
+
+
 def send_confirmation_email(to_email: str, confirmation_link: str, firstname: str = ""):
     """
     Sende eine Bestätigungs-E-Mail an den Benutzer.
@@ -29,10 +51,10 @@ def send_confirmation_email(to_email: str, confirmation_link: str, firstname: st
     email_credentials = load_email_credentials()
 
     # SMTP-Verbindung herstellen
-    logger.info("Stelle SMTP-Verbindung her.")
-    server = smtplib.SMTP(email_credentials['smtp_server'], email_credentials['smtp_port'])
-    server.starttls()
-    server.login(email_credentials['smtp_username'], email_credentials['smtp_password'])
+    server = _connect_smtp(email_credentials)
+
+    # Anzeigename aus config.json
+    sender_display_name = config.get("sender_display_name", "KSR Minecraft Team")
 
     # Name für Anrede einsetzen
     greeting_name = firstname if firstname else "Spieler"
@@ -48,7 +70,7 @@ Du bist schon fast am Ziel – es fehlt nur noch ein kleiner Schritt:
 
 {confirmation_link}
 
-Viele Grüsse vom KSR Minecraft Team
+Viele Grüsse vom {sender_display_name}
 Bei Fragen melde dich ungeniert bei uns!
 
 Discord: https://discord.gg/ekmVqnzF9g
@@ -90,7 +112,7 @@ Website: https://ksrminecraft.ch
               </tr>
               <tr>
                 <td style="padding:0 30px; text-align:center; color:#333;">
-                  <p>Viele Grüsse vom <strong>KSR Minecraft Team</strong></p>
+                  <p>Viele Grüsse vom <strong>{sender_display_name}</strong></p>
                   <p style="color:#555; font-size:14px;">Bei Fragen melde dich ungeniert bei uns!</p>
                 </td>
               </tr>
@@ -111,7 +133,7 @@ Website: https://ksrminecraft.ch
     # Multipart-Mail (Plain + HTML)
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
-    msg["From"] = formataddr(("KSR Minecraft Team", email_credentials['smtp_username']))
+    msg["From"] = formataddr((sender_display_name, email_credentials['smtp_username']))
     msg["To"] = parsed_email
 
     # Parts anhängen
