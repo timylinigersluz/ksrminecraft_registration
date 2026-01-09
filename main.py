@@ -88,7 +88,9 @@ def register():
     accepted_mail_endings = config['accepted_mail_endings']
     if not any(email.endswith(ending) for ending in accepted_mail_endings):
         logger.info("Abbruch: Unzulässige Mailendung.")
-        return render_template('error.html', errors=['Die Registrierung ist nur für bestimmte Maildomains erlaubt.'])
+        return render_template(
+            'error.html',
+            errors=[f"Die Registrierung ist nur für E-Mail-Adressen mit folgenden Endungen erlaubt: {', '.join(accepted_mail_endings)}"])
 
     # Zu viele Accounts pro Mail?
     if count >= max_permitted_users_per_mail:
