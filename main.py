@@ -6,11 +6,68 @@ from database_handler import DatabaseHandler
 import json, mail_handler, datetime, time, threading, signal, sys
 import mojang_handler  # neue Datei für Mojang-Username/UUID-Check
 
+
 app = Flask(__name__, template_folder='templates')
 
 # Laden der Konfiguration
-with open('config.json') as file:
+with open('config.json', encoding="utf-8") as file:
     config = json.load(file)
+
+
+def _normalize_email(value: str) -> str:
+    """
+    Normalisiert E-Mail für Vergleiche (case-insensitive).
+    """
+    return (value or "").strip().lower()
+
+
+def _get_email_user_limits_map(cfg: dict) -> dict:
+    """
+    Liefert email_user_limits als normalisierte Map:
+      { "mail@domain.tld": int_limit, ... }
+    """
+    raw = cfg.get("email_user_limits", {}) or {}
+    normalized = {}
+    for k, v in raw.items():
+        key = _normalize_email(str(k))
+        try:
+            normalized[key] = int(v)
+        except Exception:
+            # Falls jemand Mist einträgt, ignorieren wir den Eintrag
+            continue
+    return normalized
+
+
+def is_email_allowed(email: str, cfg: dict) -> bool:
+    """
+    Erlaubt sind:
+      - E-Mails, deren Endung in accepted_mail_endings vorkommt
+      - ODER E-Mails, die explizit in email_user_limits stehen (auch ohne @sluz.ch)
+    """
+    email_lc = _normalize_email(email)
+
+    # Whitelist/Override via email_user_limits
+    limits = _get_email_user_limits_map(cfg)
+    if email_lc in limits:
+        return True
+
+    accepted_mail_endings = cfg.get("accepted_mail_endings", []) or []
+    return any(email_lc.endswith(str(ending).lower()) for ending in accepted_mail_endings)
+
+
+def get_max_users_per_mail(email: str, cfg: dict) -> int:
+    """
+    Standard: cfg['max_users_per_mail'] (Fallback 3)
+    Override: cfg['email_user_limits'][email] (case-insensitive)
+    """
+    default_max = int(cfg.get("max_users_per_mail", 3))
+    email_lc = _normalize_email(email)
+
+    limits = _get_email_user_limits_map(cfg)
+    if email_lc in limits:
+        return limits[email_lc]
+
+    return default_max
 
 
 @app.route('/')
@@ -41,7 +98,7 @@ def show_registration_form():
 
 # SECRET_KEY aus JSON-Datei laden
 def load_secret_key():
-    with open('secret_key.json') as file:
+    with open('secret_key.json', encoding="utf-8") as file:
         data = json.load(file)
         logger.info("Json-Secret-File erfolgreich geladen.")
         return data['secret_key']
@@ -80,22 +137,28 @@ def register():
     if errors:
         return render_template('error.html', errors=errors)
 
-    with DatabaseHandler(config) as db:
-        count = db.get_user_count_by_email(email)
-        max_permitted_users_per_mail = config['max_users_per_mail']
-
-    # E-Mail-Endung prüfen
-    accepted_mail_endings = config['accepted_mail_endings']
-    if not any(email.endswith(ending) for ending in accepted_mail_endings):
-        logger.info("Abbruch: Unzulässige Mailendung.")
+    # E-Mail erlauben? (Endung oder Whitelist via email_user_limits)
+    if not is_email_allowed(email, config):
+        accepted_mail_endings = config.get('accepted_mail_endings', []) or []
+        logger.info("Abbruch: Unzulässige Mailadresse (nicht in Whitelist und Endung nicht erlaubt).")
         return render_template(
             'error.html',
-            errors=[f"Die Registrierung ist nur für E-Mail-Adressen mit folgenden Endungen erlaubt: {', '.join(accepted_mail_endings)}"])
+            errors=[f"Die Registrierung ist nur für E-Mail-Adressen mit folgenden Endungen erlaubt: {', '.join(accepted_mail_endings)}"]
+        )
+
+    # Anzahl Accounts pro Mail prüfen (mit Override via email_user_limits)
+    with DatabaseHandler(config) as db:
+        count = db.get_user_count_by_email(email)
+
+    max_permitted_users_per_mail = get_max_users_per_mail(email, config)
 
     # Zu viele Accounts pro Mail?
     if count >= max_permitted_users_per_mail:
         logger.info(f"Abbruch: Zu viele User mit dieser E-Mail-Adresse registriert ({email})")
-        return render_template('error.html', errors=[f"Es sind bereits {max_permitted_users_per_mail} Benutzer mit dieser E-Mail-Adresse registriert."])
+        return render_template(
+            'error.html',
+            errors=[f"Es sind bereits {max_permitted_users_per_mail} Benutzer mit dieser E-Mail-Adresse registriert."]
+        )
 
     # Benutzername schon registriert?
     with DatabaseHandler(config) as db:
