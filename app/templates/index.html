@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Willkommen</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center-text">Willkommen zur Registrierung</h1>
+        <p class="center-text">Bitte registrieren Sie sich, um am Minecraft-Server teilzunehmen.</p>
+        <a href="{{ url_for('registration.show_registration_form') }}">Zur Registrierung</a>
+    </div>
+</body>
+</html>

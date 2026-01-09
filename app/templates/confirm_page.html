@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrierung bestätigen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form method="POST" action="{{ url_for('confirmation.confirm_email') }}">
+            <div class="center-text" style="margin-bottom: 14px;">
+                <img src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
+                     alt="KSR Minecraft Logo"
+                     width="220"
+                     style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+            </div>
+
+            <h1>Registrierung bestätigen</h1>
+
+            <p class="center-text">
+                Registrierung bestätigen für <strong>{{ email }}</strong>
+            </p>
+
+            <p class="center-text">
+                Hallo, fast geschafft. Nur noch ein Klick.
+            </p>
+
+            <p class="center-text">
+                Bitte bestätige deine Registrierung für den <strong>KSR-Minecraft-Server</strong>.
+            </p>
+
+            <input type="hidden" name="token" value="{{ token }}">
+
+            <input type="submit" value="Jetzt bestätigen">
+        </form>
+    </div>
+</body>
+</html>

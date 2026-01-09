@@ -1,0 +1,125 @@
+<!-- app/templates/mail_preview.html -->
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>KSR Minecraft Registrierung</title>
+  </head>
+
+  <body style="margin:0; padding:0; background-color:#f9f9f9; font-family: Arial, sans-serif;">
+    <!-- Full width wrapper -->
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse; background-color:#f9f9f9;">
+      <tr>
+        <td align="center" style="padding:20px 10px;">
+
+          <!-- Container -->
+          <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0"
+                 style="border-collapse:collapse; width:600px; max-width:600px; background:#ffffff;">
+            <!-- Header / Logo -->
+            <tr>
+              <td align="center" style="padding:20px;">
+                <img
+                  src="{{ logo_url|default('https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png') }}"
+                  alt="KSR Minecraft Logo"
+                  width="200"
+                  style="display:block; width:200px; max-width:200px; height:auto; border:0; outline:none; text-decoration:none;"
+                >
+              </td>
+            </tr>
+
+            <!-- Greeting -->
+            <tr>
+              <td style="padding:0 30px 10px 30px; color:#333333;">
+                <h2 style="margin:0; font-size:22px; line-height:28px; text-align:center; font-weight:700;">
+                  Hallo {{ greeting_name|default('Spieler') }},
+                </h2>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 30px 0 30px; color:#333333;">
+                <p style="margin:10px 0 0 0; font-size:15px; line-height:22px; text-align:center;">
+                  schön, dass du dich registriert hast!
+                </p>
+                <p style="margin:10px 0 0 0; font-size:15px; line-height:22px; text-align:center;">
+                  Du bist schon fast am Ziel – es fehlt nur noch ein kleiner Schritt.
+                  Öffne bitte folgenden Link und bestätige deine Registrierung:
+                </p>
+              </td>
+            </tr>
+
+            <!-- Button -->
+            <tr>
+              <td align="center" style="padding:25px 30px 10px 30px;">
+                <!--[if mso]>
+                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml"
+                              xmlns:w="urn:schemas-microsoft-com:office:word"
+                              href="{{ confirmation_link }}"
+                              style="height:44px; v-text-anchor:middle; width:260px;"
+                              arcsize="10%"
+                              strokecolor="#28a745"
+                              fillcolor="#28a745">
+                    <w:anchorlock/>
+                    <center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px; font-weight:bold;">
+                      Registrierung bestätigen
+                    </center>
+                  </v:roundrect>
+                <![endif]-->
+
+                <!--[if !mso]><!-- -->
+                <a href="{{ confirmation_link }}"
+                   target="_blank"
+                   style="background-color:#28a745; border-radius:5px; color:#ffffff; display:inline-block;
+                          font-family:Arial, sans-serif; font-size:16px; font-weight:bold; line-height:44px;
+                          text-align:center; text-decoration:none; width:260px; -webkit-text-size-adjust:none;">
+                  Registrierung bestätigen
+                </a>
+                <!--<![endif]-->
+              </td>
+            </tr>
+
+            <!-- Fallback link -->
+            <tr>
+              <td style="padding:0 30px 0 30px; color:#555555;">
+                <p style="margin:10px 0 0 0; font-size:13px; line-height:18px; text-align:center;">
+                  Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:
+                </p>
+                <p style="margin:6px 0 0 0; font-size:13px; line-height:18px; text-align:center; word-break:break-all;">
+                  <a href="{{ confirmation_link }}" style="color:#007bff; text-decoration:none;">{{ confirmation_link }}</a>
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="padding:20px 30px 0 30px; text-align:center; color:#333333;">
+                <p style="margin:0; font-size:14px; line-height:20px;">
+                  Viele Grüsse vom <strong>{{ sender_display_name|default('KSR Minecraft Team') }}</strong>
+                </p>
+                <p style="margin:8px 0 0 0; color:#555555; font-size:13px; line-height:18px;">
+                  Bei Fragen melde dich ungeniert bei uns!
+                </p>
+              </td>
+            </tr>
+
+            <!-- Links -->
+            <tr>
+              <td align="center" style="padding:16px 30px 24px 30px; font-size:13px; line-height:18px;">
+                <a href="{{ discord_url|default('https://discord.gg/ekmVqnzF9g') }}"
+                   style="color:#007bff; text-decoration:none;">Discord</a>
+                <span style="color:#999999;"> ∙ </span>
+                <a href="{{ website_url|default('https://ksrminecraft.ch') }}"
+                   style="color:#007bff; text-decoration:none;">Website</a>
+              </td>
+            </tr>
+
+          </table>
+          <!-- /Container -->
+
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

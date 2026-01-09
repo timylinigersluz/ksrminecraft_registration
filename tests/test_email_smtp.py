@@ -1,8 +1,8 @@
 import sys, os, json
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from log_handler import logger
-from mail_handler import _connect_smtp, load_email_credentials
+from app.infrastructure.log_handler import logger
+from app.infrastructure.mail_handler import _connect_smtp, load_email_credentials
 from email.utils import formataddr
 from email.mime.text import MIMEText
 

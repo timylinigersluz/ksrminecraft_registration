@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration erfolgreich</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form>
+            <div class="center-text" style="margin-bottom: 14px;">
+                <img src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
+                     alt="KSR Minecraft Logo"
+                     width="220"
+                     style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+            </div>
+
+            <h1>Registration erfolgreich</h1>
+
+            <p class="center-text" style="font-weight:700; color:#9be29b;">
+                Gratuliere, du erfüllst alle Bedingungen, um bei uns mitspielen zu können!
+            </p>
+            <p class="center-text" style="font-weight:700; color:#9be29b;">
+                Du wirst in Kürze eine E-Mail erhalten, in der du deine Registrierung bestätigen kannst.
+            </p>
+
+            <p class="center-text">
+                Solltest du keine E-Mail erhalten, überprüfe bitte deinen Spam-Ordner.
+            </p>
+
+            <p class="center-text">
+                Solltest du auch dort keine E-Mail finden, kontaktiere uns bitte unter
+                <a href="mailto:{{ config.support_mail }}" style="display:inline;">{{ config.support_mail }}</a>
+                oder besuche unseren Discord-Server.
+            </p>
+
+            <p class="center-text">
+                <a href="{{ config.url_discord }}" style="display:inline;">Discord</a>
+            </p>
+
+            <p class="center-text" style="color:#ff6b6b; font-style:italic;">
+                Solltest du deine Registrierung nicht bestätigen, wird sie nach {{ config.waiting_time_for_db_cleaner }}
+                Minuten automatisch gelöscht.
+            </p>
+
+            <p class="center-text">Wir freuen uns auf dich!</p>
+
+            <p class="center-text" style="font-size:13px; color:rgba(255,255,255,0.7); font-style:italic;">
+                Du kannst dieses Fenster nun schliessen.
+            </p>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,2 +1,5 @@
+__pycache__/
+logs/
 secret_key.json
 config.json
+structure.txt
