@@ -14,7 +14,7 @@ def cleanup_removed_registrations_once(config: dict) -> int:
     - liest bestätigte Registrations
     - liest mysql_whitelist
     - entfernt Registrations, deren username nicht mehr in mysql_whitelist ist
-    Rückgabe: Anzahl gelöschter Einträge
+    Gibt Anzahl gelöschter Einträge zurück.
     """
     deleted = 0
 
@@ -26,7 +26,6 @@ def cleanup_removed_registrations_once(config: dict) -> int:
             logger.info("cleanup_removed: Keine bestätigten Registrations gefunden.")
             return 0
 
-        # regs: (id, email, minecraft_username)
         to_delete = []
         for reg_id, email, mc_user in regs:
             if not mc_user:
@@ -48,4 +47,4 @@ def cleanup_removed_registrations_once(config: dict) -> int:
             except Exception as e:
                 logger.error(f"cleanup_removed: Fehler beim Löschen id={reg_id} user={mc_user}: {e}")
 
-    return int(deleted)
+    return deleted

@@ -35,20 +35,25 @@ def get_email_user_limits_map(cfg: dict) -> Dict[str, int]:
 
 def is_email_allowed(email: str, cfg: dict) -> bool:
     """
-    Erlaubt sind:
-      - E-Mails, deren Endung in accepted_mail_endings vorkommt
-      - ODER E-Mails, die explizit in email_user_limits stehen
-        (auch wenn Endung nicht erlaubt wäre)
+    Backend-Policy (strikt):
+    Erlaubt sind NUR E-Mail-Adressen der Domain @sluz.ch.
+
+    Wichtig:
+    - Akzeptiert NICHT @4sluz.ch, @foo.sluz.ch, @sluz.ch.evil.com etc.
+    - Ignore cfg.accepted_mail_endings und email_user_limits bewusst,
+      damit serverseitig wirklich nur @sluz.ch möglich ist.
     """
     email_lc = normalize_email(email)
 
-    # Whitelist/Override via email_user_limits
-    limits = get_email_user_limits_map(cfg)
-    if email_lc in limits:
-        return True
+    # genau ein "@", lokaler Teil muss existieren, Domain muss exakt "sluz.ch" sein
+    if "@" not in email_lc:
+        return False
 
-    accepted_mail_endings = cfg.get("accepted_mail_endings", []) or []
-    return any(email_lc.endswith(str(ending).lower()) for ending in accepted_mail_endings)
+    local, domain = email_lc.rsplit("@", 1)
+    local = (local or "").strip()
+    domain = (domain or "").strip().lower()
+
+    return bool(local) and domain == "sluz.ch"
 
 
 def get_max_users_per_mail(email: str, cfg: dict) -> int:

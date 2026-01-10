@@ -2,7 +2,7 @@
   "//General": "General config settings",
   "debug": false,
   "max_users_per_mail": 3,
-  "waiting_time_for_db_cleaner": 60,
+  "waiting_time_for_jobs_and_token": 60,
   "accepted_mail_endings": ["example.com"],
   
 

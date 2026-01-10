@@ -28,6 +28,11 @@ def build_sample_config() -> dict:
         "sender_display_name": "KSR Minecraft Team",
         "sender_organization": "Kantonsschule Reussbühl",
 
+        # Links / Kontakt (wichtig für success.html)
+        "support_mail": "test-support@beispiel.ch",
+        "url_discord": "https://discord.gg/ekmVqnzF9g",
+        "url_get_connected": "https://ksrminecraft.ch/server",  # falls in registration_completed.html genutzt
+
         # Policies
         "accepted_mail_endings": ["@sluz.ch"],
         "max_users_per_mail": 3,
@@ -36,8 +41,8 @@ def build_sample_config() -> dict:
             "timothee.liniger@sluz.ch": 10,
         },
 
-        # Token TTL / Cleaner
-        "waiting_time_for_db_cleaner": 10,
+        # Token TTL / Jobs
+        "waiting_time_for_jobs_and_token": 10,
 
         # Mail (nur fürs Preview)
         "smtp_server": "ksrminecraft.ch",
@@ -62,6 +67,8 @@ def main():
     base = f"http://{host}:{port}"
 
     app = create_app()
+
+    # Hier überschreiben wir fürs Preview die Config (damit success.html die Fake-Mail zeigt)
     app.config["APP_CONFIG"] = build_sample_config()
 
     server, _thread = start_server(app, host, port)

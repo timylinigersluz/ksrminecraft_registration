@@ -68,6 +68,7 @@ h1{
   letter-spacing: 0.2px;
   font-size: clamp(1.8rem, 1.5rem + 1.2vw, 2.4rem);
   margin: 0 0 1.25rem 0;
+  line-height: 1.05;
 }
 
 /* ------------------------------------------------------------
@@ -200,4 +201,30 @@ a:hover{
 
 .center-text{
   text-align: center;
+}
+
+
+/* ------------------------------------------------------------
+   Kleine Helpers für einheitliche Cards
+------------------------------------------------------------ */
+
+/* Logo im Card-Kopf */
+.logo{
+  display: block;
+  margin: 0 auto 14px;
+  max-width: 220px;
+  width: 70%;
+  height: auto;
+}
+
+/* Card-Text */
+.card-text{
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+/* Links innerhalb von Fliesstext sollen inline sein */
+a.inline-link{
+  display: inline;
+  margin: 0;
 }

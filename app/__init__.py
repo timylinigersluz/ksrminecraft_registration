@@ -6,15 +6,17 @@ import json
 from pathlib import Path
 from typing import Any, Dict
 
-from flask import Flask
+from flask import Flask, request
 from itsdangerous import URLSafeTimedSerializer
 
 from app.infrastructure.log_handler import logger
 
-# Blueprints (zentral aus app.routes exportiert)
-from app.routes import registration_bp, confirmation_bp, preview_bp
+# Blueprints
+from app.routes.registration_routes import registration_bp
+from app.routes.confirmation_routes import confirmation_bp
+from app.routes.preview_routes import preview_bp
 
-# Kombinierter Job-Runner (führt cleanup_unconfirmed -> cleanup_removed aus)
+# Jobs
 from app.jobs.jobs_runner import start_jobs_thread
 
 
@@ -59,7 +61,7 @@ def create_app() -> Flask:
     app = Flask(
         __name__,
         template_folder="templates",
-        static_folder="static"
+        static_folder="static",
     )
 
     # zentral verfügbar machen
@@ -68,6 +70,30 @@ def create_app() -> Flask:
     app.config["SERIALIZER"] = URLSafeTimedSerializer(secret)
 
     logger.info("App initialisiert: Config + Secret + Serializer geladen.")
+
+    # ----------------------------
+    # CORS für Embedded-Formular
+    # ----------------------------
+    @app.after_request
+    def add_cors_headers(resp):
+        origin = request.headers.get("Origin")
+
+        allowed = {
+            "https://ksrminecraft.ch",
+            "https://www.ksrminecraft.ch",
+            # optional lokal fürs Testen:
+            "http://127.0.0.1:5000",
+            "http://localhost:5000",
+        }
+
+        if origin in allowed:
+            resp.headers["Access-Control-Allow-Origin"] = origin
+            resp.headers["Vary"] = "Origin"
+            resp.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+            resp.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept, X-Requested-With"
+            resp.headers["Access-Control-Max-Age"] = "86400"
+
+        return resp
 
     # Blueprints registrieren (Routes)
     app.register_blueprint(registration_bp)
@@ -94,9 +120,8 @@ def _init_database_and_jobs(app: Flask) -> None:
     with DatabaseHandler(cfg) as db:
         db.create_table()
 
-    # EIN Thread: führt beide Jobs nacheinander aus, dann sleep(waiting_time_for_jobs * 60)
+    # Kombinierter Runner (unconfirmed -> removed)
     try:
         start_jobs_thread(cfg)
-        logger.info("jobs_runner: Thread gestartet (unconfirmed -> removed).")
     except Exception as e:
         logger.error(f"Konnte jobs_runner Thread nicht starten: {e}")

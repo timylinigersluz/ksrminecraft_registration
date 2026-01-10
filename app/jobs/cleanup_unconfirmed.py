@@ -6,24 +6,19 @@ from app.infrastructure.log_handler import logger
 from app.infrastructure.database_handler import DatabaseHandler
 
 
-def _jobs_interval_minutes(config: dict) -> int:
-    """
-    Zentrales Job-Intervall (Minuten).
-    Neu: waiting_time_for_jobs
-    Fallback (alt): waiting_time_for_db_cleaner
-    """
-    return int(config.get("waiting_time_for_jobs", config.get("waiting_time_for_db_cleaner", 10)))
+def _minutes(config: dict) -> int:
+    return int(config.get("waiting_time_for_jobs_and_token", config.get("waiting_time_for_db_cleaner", 10)))
 
 
 def cleanup_unconfirmed_once(config: dict) -> int:
     """
     Einmaliger Durchlauf:
-    - sucht unbestätigte Registrierungen, die älter als waiting_time_for_jobs (Minuten) sind
+    - sucht unbestätigte Registrierungen, die älter als waiting_time_for_jobs_and_token (Minuten) sind
     - löscht diese Einträge
     - loggt Details (Email + Minecraft-Username)
     Rückgabe: Anzahl gelöschter Einträge
     """
-    time_difference = _jobs_interval_minutes(config)
+    time_difference = _minutes(config)
 
     with DatabaseHandler(config) as db:
         unconfirmed = db.get_unconfirmed_registrations_before(time_difference)

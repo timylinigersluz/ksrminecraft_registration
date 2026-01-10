@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fehler</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fehler</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <form>
-            <div class="center-text" style="margin-bottom: 14px;">
-                <img src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
-                     alt="KSR Minecraft Logo"
-                     width="220"
-                     style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
-            </div>
 
-            <h1>Ups, da ging was schief:</h1>
+  <div class="container">
 
-            <ul>
-                {% for error in errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
+    <form onsubmit="history.back(); return false;">
 
-            <p class="center-text">
-                Klicke bitte auf den Zurück-Knopf im Browser, um zum Formular zurückzukehren.
-            </p>
+      <img
+        class="logo"
+        src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
+        alt="KSR Minecraft Logo"
+      >
 
-            <a href="{{ url_for('registration.show_registration_form') }}">Zurück zum Formular</a>
-        </form>
-    </div>
+      <h1>Ups, da ging was schief:</h1>
+
+      <ul>
+        {% for error in errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+
+      <input type="submit" value="zurück">
+
+    </form>
+
+  </div>
+
 </body>
 </html>

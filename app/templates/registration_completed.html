@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bestätigung erfolgreich</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestätigung erfolgreich</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <form>
-            <div class="center-text" style="margin-bottom: 14px;">
-                <img src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
-                     alt="KSR Minecraft Logo"
-                     width="220"
-                     style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
-            </div>
+  <div class="container">
 
-            <h1>Bestätigung erfolgreich</h1>
+    <!-- EINZIGES Form: ist Card + Button-Action -->
+    <form action="https://ksrminecraft.ch/server.html#server-hinzufuegen" method="get">
 
-            <p class="center-text" style="font-weight:800; color:#9be29b;">
-                Vielen Dank! Deine E-Mail-Adresse wurde erfolgreich bestätigt.
-            </p>
+      <img
+        class="logo"
+        src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
+        alt="KSR Minecraft Logo"
+      >
 
-            <p class="center-text">
-                Du bist nun auf unserem Server gewhitelisted.
-            </p>
+      <h1>Bestätigung erfolgreich</h1>
 
-            <p class="center-text">
-                So kannst du dich mit unserem Server
-                <a href="{{ config.url_get_connected }}" style="display:inline;">verbinden</a>.
-                Melde dich bei Problemen einfach auf unserem
-                <a href="{{ config.url_discord }}" style="display:inline;">Discord</a>.
-            </p>
+      <p class="card-text" style="font-weight:800; color:#9be29b;">
+        Vielen Dank! Deine E-Mail-Adresse wurde erfolgreich bestätigt.
+      </p>
 
-            <p class="center-text">Wir wünschen dir viel Spass!</p>
+      <p class="card-text">
+        Du bist nun auf unserem Server gewhitelisted.
+      </p>
 
-            <a href="{{ url_for('registration.index') }}">Zurück zur Startseite</a>
-        </form>
-    </div>
+      <p class="card-text">
+        So kannst du dich mit unserem Server
+        <a class="inline-link" href="https://ksrminecraft.ch">verbinden</a>.
+        Melde dich bei Problemen einfach auf unserem
+        <a class="inline-link" href="{{ config.url_discord }}">Discord</a>.
+      </p>
+
+      <p class="card-text">Wir wünschen dir viel Spass!</p>
+
+      <!-- Weinroter Button via styles.css: input[type="submit"] -->
+      <input type="submit" value="Zurück zur Startseite">
+
+    </form>
+
+  </div>
 </body>
 </html>

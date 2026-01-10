@@ -13,22 +13,15 @@ from app.jobs.cleanup_removed import cleanup_removed_registrations_once
 def _jobs_interval_minutes(config: dict) -> int:
     """
     Zentrales Job-Intervall (Minuten).
-    Neu: waiting_time_for_jobs
-    Fallback (alt): waiting_time_for_db_cleaner / waiting_time_for_removed_cleanup
-
-    Sicherheit:
-    - Minimum 1 Minute (verhindert Busy-Loop bei 0/negativ)
+    Neu: waiting_time_for_jobs_and_token
+    Fallback: waiting_time_for_db_cleaner / waiting_time_for_removed_cleanup / 10
     """
-    raw = config.get(
-        "waiting_time_for_jobs",
-        config.get("waiting_time_for_db_cleaner", config.get("waiting_time_for_removed_cleanup", 10)),
+    return int(
+        config.get(
+            "waiting_time_for_jobs_and_token",
+            config.get("waiting_time_for_db_cleaner", config.get("waiting_time_for_removed_cleanup", 10)),
+        )
     )
-    try:
-        minutes = int(raw)
-    except Exception:
-        minutes = 10
-
-    return max(1, minutes)
 
 
 def jobs_loop(config: dict):
@@ -36,29 +29,24 @@ def jobs_loop(config: dict):
     Endlosschleife:
       1) cleanup_unconfirmed_once
       2) cleanup_removed_registrations_once
-      3) sleep(waiting_time_for_jobs)
+      3) sleep(waiting_time_for_jobs_and_token)
     """
     while True:
-        logger.info("jobs_runner: Starte Durchlauf (unconfirmed -> removed).")
-
-        # Job 1: unconfirmed
         try:
+            logger.info("jobs_runner: Starte Durchlauf (unconfirmed -> removed).")
+
             deleted_unconfirmed = cleanup_unconfirmed_once(config)
             logger.info(f"jobs_runner: unconfirmed gelöscht: {deleted_unconfirmed}")
-        except Exception as e:
-            logger.error(f"jobs_runner: Fehler in cleanup_unconfirmed_once: {e}")
 
-        # Job 2: removed
-        try:
             deleted_removed = cleanup_removed_registrations_once(config)
             logger.info(f"jobs_runner: removed gelöscht: {deleted_removed}")
+
+            logger.info("jobs_runner: Durchlauf abgeschlossen.")
+
         except Exception as e:
-            logger.error(f"jobs_runner: Fehler in cleanup_removed_registrations_once: {e}")
+            logger.error(f"jobs_runner: Fehler im Durchlauf: {e}")
 
-        logger.info("jobs_runner: Durchlauf abgeschlossen.")
-
-        minutes = _jobs_interval_minutes(config)
-        time.sleep(minutes * 60)
+        time.sleep(_jobs_interval_minutes(config) * 60)
 
 
 def start_jobs_thread(config: dict) -> threading.Thread:

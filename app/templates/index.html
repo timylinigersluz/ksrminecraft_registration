@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Willkommen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <title>Willkommen</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="center-text">Willkommen zur Registrierung</h1>
-        <p class="center-text">Bitte registrieren Sie sich, um am Minecraft-Server teilzunehmen.</p>
-        <a href="{{ url_for('registration.show_registration_form') }}">Zur Registrierung</a>
-    </div>
+  <div class="container">
+    <form action="{{ url_for('registration.show_registration_form') }}" method="GET">
+
+      <img
+        class="logo"
+        src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
+        alt="KSR Minecraft Logo"
+      >
+
+      <h1>Willkommen</h1>
+
+      <p class="card-text">
+        Bitte registriere dich, um am Minecraft-Server teilzunehmen.
+      </p>
+
+      <input type="submit" value="Zur Registrierung">
+
+    </form>
+  </div>
 </body>
 </html>

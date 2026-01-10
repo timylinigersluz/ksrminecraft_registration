@@ -4,3 +4,4 @@ requests
 mctools
 mysql-connector-python
 gunicorn
+flask-cors

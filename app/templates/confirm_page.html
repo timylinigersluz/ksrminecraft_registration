@@ -9,29 +9,45 @@
 <body>
     <div class="container">
         <form method="POST" action="{{ url_for('confirmation.confirm_email') }}">
-            <div class="center-text" style="margin-bottom: 14px;">
-                <img src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
-                     alt="KSR Minecraft Logo"
-                     width="220"
-                     style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
-            </div>
+
+            <img
+              class="logo"
+              src="https://ksrminecraft.ch/assets/media/logos/logotransparentrechteck.png"
+              alt="KSR Minecraft Logo"
+            >
 
             <h1>Registrierung bestätigen</h1>
 
-            <p class="center-text">
-                Registrierung bestätigen für <strong>{{ email }}</strong>
+            <p class="card-text" style="margin-bottom:6px;">
+                Registrierung bestätigen für
             </p>
 
-            <p class="center-text">
-                Hallo, fast geschafft. Nur noch ein Klick.
+            <p class="card-text" style="margin-top:0; margin-bottom:14px;">
+                <strong style="color:#9be29b; font-weight:800;">
+                    {{ email }}
+                </strong>
             </p>
 
-            <p class="center-text">
-                Bitte bestätige deine Registrierung für den <strong>KSR-Minecraft-Server</strong>.
+            <p class="card-text" style="margin-bottom:0;">
+                Hallo {{ firstname|default("Spieler", true) }},
+            </p>
+
+            <p class="card-text" style="margin:0;">
+                fast geschafft.
+            </p>
+
+            <p class="card-text" style="margin-top:0; margin-bottom:14px;">
+                Nur noch ein Klick.
+            </p>
+
+            <p class="card-text" style="margin:0;">
+                Bitte bestätige deine Registrierung für den
+            </p>
+            <p class="card-text" style="margin-top:0;">
+                <strong>KSR-Minecraft-Server.</strong>
             </p>
 
             <input type="hidden" name="token" value="{{ token }}">
-
             <input type="submit" value="Jetzt bestätigen">
         </form>
     </div>
