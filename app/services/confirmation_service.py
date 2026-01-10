@@ -114,7 +114,7 @@ def confirm_registration_by_token(
     email = str(decoded["email"]).strip()
 
     # --- LOG START (wie gewünscht) ---
-    logger.info("Registrierungsbestätigung erkannt:")
+    logger.info("#################### Registrierungsbestätigung erkannt: ####################")
     logger.info(f"E-Mailadresse: {_mask_email(email)}")
     logger.info(f"Client-IP: {client_ip or 'unknown'}")
     logger.info(f"Token: ...{_token_tail(token)}")

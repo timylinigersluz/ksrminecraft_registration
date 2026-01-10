@@ -96,7 +96,7 @@ def process_registration(
     # --- Logging Start (Audit/Debug) ---
     # Achtung: Der Username wird hier unmaskiert geloggt (kann ok sein,
     # aber wenn du es noch strenger willst, könntest du später auch hier maskieren).
-    logger.info("Neue Registrierung aufgegeben:")
+    logger.info("#################### Neue Registrierung aufgegeben: ####################")
     logger.info(f"Name: {lastname}")
     logger.info(f"Vorname: {firstname}")
     logger.info(f"Email: {email_masked}")
